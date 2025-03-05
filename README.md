@@ -19,7 +19,7 @@
     - [2. Création des Répertoires Partagés](#2-création-des-répertoires-partagés)
     - [3. Attribution des Répertoires aux Groupes](#3-attribution-des-répertoires-aux-groupes)
     - [4. Configuration des Permissions](#4-configuration-des-permissions)
-    - [5. Ajoutez des utilisateurs aux groupes :](#5-ajoutez-des-utilisateurs-aux-groupes-)
+    - [5. Ajoutez des utilisateurs aux groupes](#5-ajoutez-des-utilisateurs-aux-groupes)
     - [6. Création de Nouveaux Utilisateurs (si nécessaire)](#6-création-de-nouveaux-utilisateurs-si-nécessaire)
     - [7. Vérification](#7-vérification)
   - [Étape 4 : Sécurisation du Serveur](#étape-4--sécurisation-du-serveur)
@@ -27,28 +27,28 @@
       - [1.1 Modifiez le fichier de configuration SSH](#11-modifiez-le-fichier-de-configuration-ssh)
       - [1.2 Trouver la Ligne du Port](#12-trouver-la-ligne-du-port)
       - [1.3 Enregistrer et Quitter](#13-enregistrer-et-quitter)
-      - [1.4 Redémarrer le Service SSH : Pour appliquer les modifications, redémarrez le service SSH](#14-redémarrer-le-service-ssh--pour-appliquer-les-modifications-redémarrez-le-service-ssh)
+      - [1.4 Redémarrer le Service SSH](#14-redémarrer-le-service-ssh)
     - [2. Désactiver l'Authentification par Mot de Passe](#2-désactiver-lauthentification-par-mot-de-passe)
     - [3. Configurer l'Authentification par Clé SSH](#3-configurer-lauthentification-par-clé-ssh)
       - [3.1 Générer une Paire de Clés SSH sur le Client](#31-générer-une-paire-de-clés-ssh-sur-le-client)
-      - [3.2 Copier la Clé Publique sur le Serveur :](#32-copier-la-clé-publique-sur-le-serveur-)
+      - [3.2 Copier la Clé Publique sur le Serveur](#32-copier-la-clé-publique-sur-le-serveur)
       - [3.3 Configurer le Serveur SSH](#33-configurer-le-serveur-ssh)
       - [3.4 Redémarrer le Service SSH](#34-redémarrer-le-service-ssh)
       - [3.5 Se Connecter au Serveur](#35-se-connecter-au-serveur)
-  - [Étapes 5 : Renforcement de la Sécurité](#étapes-5--renforcement-de-la-sécurité) -
-    [1. Configurer un Pare-feu avec ufw](#1-configurer-un-pare-feu-avec-ufw) -
-    [2. Autoriser les Connexions sur des Ports Spécifiques :](#2-autoriser-les-connexions-sur-des-ports-spécifiques-) -
-    [2.1 Autoriser d'Autres Ports (si nécessaire) :](#21-autoriser-dautres-ports-si-nécessaire-) -
-    [2.2 Vérifier l'État de ufw](#22-vérifier-létat-de-ufw) -
-    [3. Installer et Configurer Fail2Ban](#3-installer-et-configurer-fail2ban) -
-    [4. Redémarrer Fail2Ban :](#4-redémarrer-fail2ban-) -
-    [5. Vérifier l'État de Fail2Ban](#5-vérifier-létat-de-fail2ban)
+  - [Étapes 5 : Renforcement de la Sécurité](#étapes-5--renforcement-de-la-sécurité)
+    - [1. Configurer un Pare-feu avec ufw](#1-configurer-un-pare-feu-avec-ufw)
+    - [2. Autoriser les Connexions sur des Ports Spécifiques](#2-autoriser-les-connexions-sur-des-ports-spécifiques)
+      - [2.1 Autoriser d'Autres Ports (si nécessaire)](#21-autoriser-dautres-ports-si-nécessaire)
+      - [2.2 Vérifier l'État de ufw](#22-vérifier-létat-de-ufw)
+      - [3. Installer et Configurer Fail2Ban](#3-installer-et-configurer-fail2ban)
+      - [4. Redémarrer Fail2Ban](#4-redémarrer-fail2ban)
+      - [5. Vérifier l'État de Fail2Ban](#5-vérifier-létat-de-fail2ban)
   - [Étape 6 : (Optionnel) Scripts de Monitoring](#étape-6--optionnel-scripts-de-monitoring)
     - [1. Script de Monitoring Simple](#1-script-de-monitoring-simple)
     - [1. Automatisation avec Cron](#1-automatisation-avec-cron)
     - [2. Script de Monitoring Interactif](#2-script-de-monitoring-interactif)
-  - [Étape 6 : Script de Backup](#étape-6--script-de-backup)
-    - [1. Automatisation avec Cron](#1-automatisation-avec-cron-1)
+  - [3. Script de Backup](#3-script-de-backup)
+    - [1. Automatisation du script avec Cron](#1-automatisation-du-script-avec-cron)
   - [Conclusion](#conclusion)
   - [Remarques](#remarques)
 
@@ -235,7 +235,7 @@ aux répertoires spécifiques.
 sudo chmod -R 740 /home/invite_shared
 ```
 
-### 5. Ajoutez des utilisateurs aux groupes :
+### 5. Ajoutez des utilisateurs aux groupes
 
 ```bash
 sudo usermod -aG developer nom_utilisateur
@@ -293,7 +293,9 @@ Cherchez la ligne #Port 22 et remplacez-la par un autre numéro de port, par exe
 
 Enregistrez les modifications et quittez l'éditeur (Ctrl+X, puis Y, puis Entrée).
 
-#### 1.4 Redémarrer le Service SSH : Pour appliquer les modifications, redémarrez le service SSH
+#### 1.4 Redémarrer le Service SSH
+
+Pour appliquer les modifications, redémarrez le service SSH
 
 ```bash
 sudo systemctl restart ssh
@@ -332,7 +334,7 @@ ssh-keygen -t rsa -b 4096 -C "votre_email@example.com"
 serez invité à spécifier un emplacement pour sauvegarder la clé (par défaut `~/.ssh/id_rsa`) et à
 entrer une phrase de passe (optionnelle).
 
-#### 3.2 Copier la Clé Publique sur le Serveur :
+#### 3.2 Copier la Clé Publique sur le Serveur
 
 Utilisez la commande `ssh-copy-id` pour copier votre clé publique sur le serveur :
 
@@ -382,7 +384,7 @@ le nom de domaine de votre serveur. Remarques
 Dans cette étape, nous allons configurer un pare-feu pour contrôler le trafic réseau et installer
 Fail2Ban pour protéger votre serveur contre les tentatives de connexion répétées. (brutforce)
 
-#### 1. Configurer un Pare-feu avec ufw
+### 1. Configurer un Pare-feu avec ufw
 
 ufw (Uncomplicated Firewall) est un outil simple et efficace pour gérer les règles de pare-feu sur
 votre serveur.
@@ -393,10 +395,10 @@ votre serveur.
 sudo apt install ufw -y
 ```
 
-#### 2. Autoriser les Connexions sur des Ports Spécifiques :
+### 2. Autoriser les Connexions sur des Ports Spécifiques
 
 Vous devez autoriser les connexions sur les ports nécessaires, comme le port SSH que vous avez
-configuré précédemment. Remplacez <Port> par le numéro de port que vous utilisez pour SSH (par
+configuré précédemment. Remplacez `Port` par le numéro de port que vous utilisez pour SSH (par
 exemple, 8456).
 
 ```bash
@@ -405,7 +407,7 @@ sudo ufw allow <Port>/tcp
 
 **- Explication :** Cette commande autorise les connexions TCP entrantes sur le port choisi.
 
-##### 2.1 Autoriser d'Autres Ports (si nécessaire) :
+#### 2.1 Autoriser d'Autres Ports (si nécessaire)
 
 Si vous avez d'autres services (comme un serveur web) qui nécessitent des ports spécifiques,
 autorisez-les également. Par exemple, pour un serveur web :
@@ -423,7 +425,7 @@ sudo ufw enable
 
 **- Explication :** Cette commande active ufw et applique les règles configurées.
 
-##### 2.2 Vérifier l'État de ufw
+#### 2.2 Vérifier l'État de ufw
 
 Vous pouvez vérifier l'état et les règles actives de ufw avec la commande suivante :
 
@@ -469,7 +471,7 @@ sudo nano /etc/fail2ban/jail.local
 - _action :_ Assurez-vous que l'action par défaut est définie pour utiliser ufw (par exemple, action
   = %(action_mwl)s).
 
-#### 4. Redémarrer Fail2Ban :
+#### 4. Redémarrer Fail2Ban
 
 Après avoir modifié le fichier de configuration, redémarrez Fail2Ban pour appliquer les changements
 :
@@ -613,7 +615,7 @@ Rendre le script exécutable :
 sudo chmod +x /usr/local/bin/interactive_monitor.sh
 ```
 
-## Étape 6 : Script de Backup
+## 3. Script de Backup
 
 Créez un script pour automatiser les sauvegardes.
 
@@ -734,7 +736,7 @@ Rendre le script exécutable :
 sudo chmod +x /usr/local/bin/backup.sh
 ```
 
-### 1. Automatisation avec Cron
+### 1. Automatisation du script avec Cron
 
 Configurez une tâche cron pour exécuter le script de backup tous les jours à minuit.
 
