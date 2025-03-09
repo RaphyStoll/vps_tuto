@@ -645,36 +645,36 @@ LOG_FILE="/var/log/custom_backup.log"
 log_message() {
     local type="$1"
     shift
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$type] $*" >> "\$LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$type] $*" >> "$LOG_FILE"
     echo "[$type] $*"
 }
 
 usage() {
-    echo "Usage: \$0 [-s source_dir] [-d backup_dir] [-m max_backups] [-f free_space]"
-    echo "  -s : Répertoire source (défaut: \$SOURCE_DIR)"
-    echo "  -d : Répertoire de destination des backups (défaut: \$BACKUP_DIR)"
-    echo "  -m : Nombre maximum de backups à conserver (défaut: \$MAX_BACKUPS)"
-    echo "  -f : Espace minimum requis en KB (défaut: \$MIN_DISK_SPACE)"
+    echo "Usage: $0 [-s source_dir] [-d backup_dir] [-m max_backups] [-f free_space]"
+    echo "  -s : Répertoire source (défaut: $SOURCE_DIR)"
+    echo "  -d : Répertoire de destination des backups (défaut: $BACKUP_DIR)"
+    echo "  -m : Nombre maximum de backups à conserver (défaut: $MAX_BACKUPS)"
+    echo "  -f : Espace minimum requis en KB (défaut: $MIN_DISK_SPACE)"
     exit 1
 }
 
-while getopts "s\:d\:m\:f\:h" opt; do
-    case \$opt in
-        s) SOURCE_DIR="\$OPTARG" ;;
-        d) BACKUP_DIR="\$OPTARG" ;;
-        m) MAX_BACKUPS="\$OPTARG" ;;
-        f) MIN_DISK_SPACE="\$OPTARG" ;;
+while getopts "s:d:m:f:h" opt; do
+    case $opt in
+        s) SOURCE_DIR="$OPTARG" ;;
+        d) BACKUP_DIR="$OPTARG" ;;
+        m) MAX_BACKUPS="$OPTARG" ;;
+        f) MIN_DISK_SPACE="$OPTARG" ;;
         h) usage ;;
         ?) usage ;;
     esac
 done
 
-mkdir -p "\$BACKUP_DIR"
+mkdir -p "$BACKUP_DIR"
 
 check_disk_space() {
     local available_space
-    available_space=\$(df -k "\$BACKUP_DIR" | tail -1 | awk '{print \$4}')
-    if [ "\$available_space" -lt "$MIN_DISK_SPACE" ]; then
+    available_space=$(df -k "$BACKUP_DIR" | tail -1 | awk '{print $4}')
+    if [ "$available_space" -lt "$MIN_DISK_SPACE" ]; then
         log_message "ERROR" "Espace disque insuffisant. Disponible: ${available_space}KB"
         return 1
     fi
@@ -683,11 +683,11 @@ check_disk_space() {
 
 rotate_backups() {
     local count
-    count=\$(ls -1 "\$BACKUP_DIR"/"\$BACKUP_PREFIX"* 2>/dev/null | wc -l)
+    count=$(ls -1 "$BACKUP_DIR/$BACKUP_PREFIX"* 2>/dev/null | wc -l)
 
-    while [ "\$count" -ge "$MAX_BACKUPS" ]; do
-        oldest_backup=$(ls -1t "\$BACKUP_DIR"/"\$BACKUP_PREFIX"* | tail -1)
-        log_message "INFO" "Suppression de l'ancien backup: \$oldest_backup"
+    while [ "$count" -ge "$MAX_BACKUPS" ]; do
+        oldest_backup=$(ls -1t "$BACKUP_DIR/$BACKUP_PREFIX"* | tail -1)
+        log_message "INFO" "Suppression de l'ancien backup: $oldest_backup"
         rm -rf "$oldest_backup"
         count=$((count - 1))
     done
@@ -696,27 +696,27 @@ rotate_backups() {
 create_backup() {
     local backup_date
     backup_date=$(date '+%Y%m%d_%H%M%S')
-    local backup_name="${BACKUP_PREFIX}\${backup_date}"
-    local backup_path="\$BACKUP_DIR/\$backup_name"
+    local backup_name="${BACKUP_PREFIX}${backup_date}"
+    local backup_path="$BACKUP_DIR/$backup_name"
 
-    log_message "INFO" "Début du backup: \$backup_name"
+    log_message "INFO" "Début du backup: $backup_name"
 
-    if rsync -azh --stats --delete "\$SOURCE_DIR/" "\$backup_path/"; then
+    if rsync -azh --stats --delete "$SOURCE_DIR/" "$backup_path/"; then
         log_message "INFO" "Backup terminé avec succès: $backup_name"
-        echo "Backup créé le: $(date)" > "\$backup_path/backup_info.txt"
-        echo "Source: \$SOURCE_DIR" >> "$backup_path/backup_info.txt"
-        echo "Taille: $(du -sh "\$backup_path" | cut -f1)" >> "\$backup_path/backup_info.txt"
+        echo "Backup créé le: $(date)" > "$backup_path/backup_info.txt"
+        echo "Source: $SOURCE_DIR" >> "$backup_path/backup_info.txt"
+        echo "Taille: $(du -sh "$backup_path" | cut -f1)" >> "$backup_path/backup_info.txt"
         return 0
     else
-        log_message "ERROR" "Échec du backup: \$backup_name"
-        rm -rf "\$backup_path"
+        log_message "ERROR" "Échec du backup: $backup_name"
+        rm -rf "$backup_path"
         return 1
     fi
 }
 
 main() {
-    if [ ! -d "\$SOURCE_DIR" ]; then
-        log_message "ERROR" "Répertoire source non trouvé: \$SOURCE_DIR"
+    if [ ! -d "$SOURCE_DIR" ]; then
+        log_message "ERROR" "Répertoire source non trouvé: $SOURCE_DIR"
         exit 1
     fi
 
