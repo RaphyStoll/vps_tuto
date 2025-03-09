@@ -3,54 +3,54 @@
 ## Table des Matières
 
 - [Tutoriel : Configuration d'un Serveur VPS](#tutoriel--configuration-dun-serveur-vps)
-	- [Table des Matières](#table-des-matières)
-	- [Introduction](#introduction)
-	- [Prérequis](#prérequis)
-	- [Étape 1 : Mise à Jour du Système](#étape-1--mise-à-jour-du-système)
-	- [Étape 2 : Installation des Outils Nécessaires (selon mon utilisation)](#étape-2--installation-des-outils-nécessaires-selon-mon-utilisation)
-		- [1. Installation des Outils](#1-installation-des-outils)
-		- [2. Configuration pour Tous les Utilisateurs](#2-configuration-pour-tous-les-utilisateurs)
-			- [2.1. les Chemins d'Accès](#21-les-chemins-daccès)
-			- [2.2. Configurer Poetry](#22-configurer-poetry)
-			- [2.3. Configurer pipx](#23-configurer-pipx)
-		- [3. Vérification](#3-vérification)
-	- [Étape 3 : Configuration des Groupes d'Utilisateurs](#étape-3--configuration-des-groupes-dutilisateurs)
-		- [1. Création des Groupes](#1-création-des-groupes)
-		- [2. Création des Répertoires Partagés](#2-création-des-répertoires-partagés)
-		- [3. Attribution des Répertoires aux Groupes](#3-attribution-des-répertoires-aux-groupes)
-		- [4. Configuration des Permissions](#4-configuration-des-permissions)
-		- [5. Ajoutez des utilisateurs aux groupes](#5-ajoutez-des-utilisateurs-aux-groupes)
-		- [6. Création de Nouveaux Utilisateurs (si nécessaire)](#6-création-de-nouveaux-utilisateurs-si-nécessaire)
-		- [7. Vérification](#7-vérification)
-	- [Étape 4 : Sécurisation du Serveur](#étape-4--sécurisation-du-serveur)
-		- [1. Changer le Port SSH](#1-changer-le-port-ssh)
-			- [1.1 Modifiez le fichier de configuration SSH](#11-modifiez-le-fichier-de-configuration-ssh)
-			- [1.2 Trouver la Ligne du Port](#12-trouver-la-ligne-du-port)
-			- [1.3 Enregistrer et Quitter](#13-enregistrer-et-quitter)
-			- [1.4 Redémarrer le Service SSH](#14-redémarrer-le-service-ssh)
-		- [2. Désactiver l'Authentification par Mot de Passe](#2-désactiver-lauthentification-par-mot-de-passe)
-		- [3. Configurer l'Authentification par Clé SSH](#3-configurer-lauthentification-par-clé-ssh)
-			- [3.1 Générer une Paire de Clés SSH sur le Client](#31-générer-une-paire-de-clés-ssh-sur-le-client)
-			- [3.2 Copier la Clé Publique sur le Serveur](#32-copier-la-clé-publique-sur-le-serveur)
-			- [3.3 Configurer le Serveur SSH](#33-configurer-le-serveur-ssh)
-			- [3.4 Redémarrer le Service SSH](#34-redémarrer-le-service-ssh)
-			- [3.5 Se Connecter au Serveur](#35-se-connecter-au-serveur)
-	- [Étapes 5 : Renforcement de la Sécurité](#étapes-5--renforcement-de-la-sécurité)
-		- [1. Configurer un Pare-feu avec ufw](#1-configurer-un-pare-feu-avec-ufw)
-		- [2. Autoriser les Connexions sur des Ports Spécifiques](#2-autoriser-les-connexions-sur-des-ports-spécifiques)
-			- [2.1 Autoriser d'Autres Ports (si nécessaire)](#21-autoriser-dautres-ports-si-nécessaire)
-			- [2.2 Vérifier l'État de ufw](#22-vérifier-létat-de-ufw)
-			- [3. Installer et Configurer Fail2Ban](#3-installer-et-configurer-fail2ban)
-			- [4. Redémarrer Fail2Ban](#4-redémarrer-fail2ban)
-			- [5. Vérifier l'État de Fail2Ban](#5-vérifier-létat-de-fail2ban)
-	- [Étape 6 : (Optionnel) Scripts de Monitoring](#étape-6--optionnel-scripts-de-monitoring)
-		- [1. Script de Monitoring Simple](#1-script-de-monitoring-simple)
-		- [1. Automatisation avec Cron](#1-automatisation-avec-cron)
-		- [2. Script de Monitoring Interactif](#2-script-de-monitoring-interactif)
-	- [3. Script de Backup](#3-script-de-backup)
-		- [1. Automatisation du script avec Cron](#1-automatisation-du-script-avec-cron)
-	- [Conclusion](#conclusion)
-	- [Remarques](#remarques)
+  - [Table des Matières](#table-des-matières)
+  - [Introduction](#introduction)
+  - [Prérequis](#prérequis)
+  - [Étape 1 : Mise à Jour du Système](#étape-1--mise-à-jour-du-système)
+  - [Étape 2 : Installation des Outils Nécessaires (selon mon utilisation)](#étape-2--installation-des-outils-nécessaires-selon-mon-utilisation)
+    - [1. Installation des Outils](#1-installation-des-outils)
+    - [2. Configuration pour Tous les Utilisateurs](#2-configuration-pour-tous-les-utilisateurs)
+      - [2.1. les Chemins d'Accès](#21-les-chemins-daccès)
+      - [2.2. Configurer Poetry](#22-configurer-poetry)
+      - [2.3. Configurer pipx](#23-configurer-pipx)
+    - [3. Vérification](#3-vérification)
+  - [Étape 3 : Configuration des Groupes d'Utilisateurs](#étape-3--configuration-des-groupes-dutilisateurs)
+    - [1. Création des Groupes](#1-création-des-groupes)
+    - [2. Création des Répertoires Partagés](#2-création-des-répertoires-partagés)
+    - [3. Attribution des Répertoires aux Groupes](#3-attribution-des-répertoires-aux-groupes)
+    - [4. Configuration des Permissions](#4-configuration-des-permissions)
+    - [5. Ajoutez des utilisateurs aux groupes](#5-ajoutez-des-utilisateurs-aux-groupes)
+    - [6. Création de Nouveaux Utilisateurs (si nécessaire)](#6-création-de-nouveaux-utilisateurs-si-nécessaire)
+    - [7. Vérification](#7-vérification)
+  - [Étape 4 : Sécurisation du Serveur](#étape-4--sécurisation-du-serveur)
+    - [1. Changer le Port SSH](#1-changer-le-port-ssh)
+      - [1.1 Modifiez le fichier de configuration SSH](#11-modifiez-le-fichier-de-configuration-ssh)
+      - [1.2 Trouver la Ligne du Port](#12-trouver-la-ligne-du-port)
+      - [1.3 Enregistrer et Quitter](#13-enregistrer-et-quitter)
+      - [1.4 Redémarrer le Service SSH](#14-redémarrer-le-service-ssh)
+    - [2. Désactiver l'Authentification par Mot de Passe](#2-désactiver-lauthentification-par-mot-de-passe)
+    - [3. Configurer l'Authentification par Clé SSH](#3-configurer-lauthentification-par-clé-ssh)
+      - [3.1 Générer une Paire de Clés SSH sur le Client](#31-générer-une-paire-de-clés-ssh-sur-le-client)
+      - [3.2 Copier la Clé Publique sur le Serveur](#32-copier-la-clé-publique-sur-le-serveur)
+      - [3.3 Configurer le Serveur SSH](#33-configurer-le-serveur-ssh)
+      - [3.4 Redémarrer le Service SSH](#34-redémarrer-le-service-ssh)
+      - [3.5 Se Connecter au Serveur](#35-se-connecter-au-serveur)
+  - [Étapes 5 : Renforcement de la Sécurité](#étapes-5--renforcement-de-la-sécurité)
+    - [1. Configurer un Pare-feu avec ufw](#1-configurer-un-pare-feu-avec-ufw)
+    - [2. Autoriser les Connexions sur des Ports Spécifiques](#2-autoriser-les-connexions-sur-des-ports-spécifiques)
+      - [2.1 Autoriser d'Autres Ports (si nécessaire)](#21-autoriser-dautres-ports-si-nécessaire)
+      - [2.2 Vérifier l'État de ufw](#22-vérifier-létat-de-ufw)
+      - [3. Installer et Configurer Fail2Ban](#3-installer-et-configurer-fail2ban)
+      - [4. Redémarrer Fail2Ban](#4-redémarrer-fail2ban)
+      - [5. Vérifier l'État de Fail2Ban](#5-vérifier-létat-de-fail2ban)
+  - [Étape 6 : (Optionnel) Scripts de Monitoring](#étape-6--optionnel-scripts-de-monitoring)
+    - [1. Script de Monitoring Simple](#1-script-de-monitoring-simple)
+    - [1. Automatisation avec Cron](#1-automatisation-avec-cron)
+    - [2. Script de Monitoring Interactif](#2-script-de-monitoring-interactif)
+  - [3. Script de Backup](#3-script-de-backup)
+    - [1. Automatisation du script avec Cron](#1-automatisation-du-script-avec-cron)
+  - [Conclusion](#conclusion)
+  - [Remarques](#remarques)
 
 ## Introduction
 
@@ -62,6 +62,8 @@ scripts de monitoring et de backup.
 
 - Un VPS avec un système d'exploitation Linux (Ubuntu, Debian, etc.)
 - Accès root ou utilisateur avec privilèges sudo
+- Vérifiez que votre VPS dispose des ressources nécessaires (RAM, CPU, espace disque) pour vos
+  besoins.
 
 ## Étape 1 : Mise à Jour du Système
 
@@ -71,6 +73,9 @@ plusieurs jours, n'hésitez pas à mettre à jour le système avant de reprendre
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
+
+Remarque : Après la mise à jour, vérifiez les journaux système (`/var/log/apt/`) pour détecter
+d’éventuels problèmes.
 
 ## Étape 2 : Installation des Outils Nécessaires (selon mon utilisation)
 
@@ -82,30 +87,28 @@ Installez les outils et logiciels suivants si nécessaire :
   d'applications.
 - **pip** : Le gestionnaire de paquets pour Python, utilisé pour installer et gérer les
   bibliothèques Python.
-- **x11-apps** : Un ensemble d'applications graphiques pour les systèmes Linux, utilisé pour les
-  interfaces graphiques.
+- **tmux** : Multiplexeur de terminal pour gérer plusieurs sessions, utile pour des processus
+  persistants.
 - **poetry** : Un outil de gestion des dépendances et des environnements pour les projets Python.
 - **pipx** : Un installateur de paquets Python qui permet d'installer et d'exécuter des applications
   Python dans des environnements isolés.
 - **ensurepath** : Une commande utilisée pour s'assurer que les chemins nécessaires sont ajoutés à
   votre variable d'environnement PATH.
+- **x11-apps (Optionnel)** : Un ensemble d'applications graphiques pour les systèmes Linux, utilisé
+  pour les interfaces graphiques.
 
 ```markdown
-# Installer Python3 et pip
+sudo apt install python3 python3-pip tmux -y
 
-sudo apt install python3 python3-pip -y
+curl -sSL https://install.python-poetry.org | sudo python3 -
 
-# Installer x11-apps pour les applications graphiques
+sudo apt install pipx -y
+
+sudo pipx ensurepath
+
+# (tmux = optionnel)
 
 sudo apt install x11-apps -y
-
-# Installer Poetry pour la gestion des dépendances Python
-
-sudo curl -sSL https://install.python-poetry.org | sudo python3 -
-
-# Installer pipx pour les applications Python isolées
-
-sudo apt install pipx -y sudo pipx ensurepath
 ```
 
 ### 2. Configuration pour Tous les Utilisateurs
@@ -172,14 +175,10 @@ pipx --version
 Créez des groupes pour organiser les utilisateurs et attribuer des permissions spécifiques.
 J'utilise trois groupes en plus de `sudo`, chacun ayant ses propres droits :
 
-- **developer** : Accès complet aux répertoires de développement et aux outils nécessaires. Les
-  membres de ce groupe peuvent lire, écrire et exécuter des fichiers dans les répertoires de
-  développement.
-- **user** : Accès en lecture seule aux répertoires de développement et accès complet à leurs
-  répertoires personnels. Les utilisateurs peuvent lire les fichiers dans les répertoires partagés
-  mais ne peuvent pas les modifier.
-- **invite** : Accès limité, généralement en lecture seule aux répertoires spécifiques. Les invités
-  peuvent accéder à certains fichiers ou répertoires partagés sans pouvoir les modifier.
+- **developer** : Accès complet (lecture, écriture, exécution) aux répertoires de développement.
+- **user** : Accès en lecture seule aux répertoires partagés, accès complet à leur répertoire
+  personnel.
+- **invite** : Accès limité, généralement en lecture seule.
 
 ### 1. Création des Groupes
 
@@ -503,29 +502,29 @@ sudo nano /usr/local/bin/monitoring.sh
 ```bash
 #!/bin/bash
 
-DATE=\$(date '+%Y-%m-%d %H:%M:%S')
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
 USERS="raphael root"
 LOG_FILE="/var/log/simple_monitor.log"
+DEBUG_LOG="/var/log/simple_monitor_debug.log"
 
 send_to_user_terminals() {
-    local user=\$1
+    local user=$1
     local message=$2
-    user_ttys=$(who | grep "^\$user" | awk '{print \$2}')
-    if [ -z "\$user_ttys" ]; then
+    user_tty=$(who | grep "^$user" | awk '{print $2}' | head -n 1)
+    if [ -z "$user_tty" ]; then
         return
     fi
-    for tty in \$user_ttys; do
-        echo "\$message" | write "\$user" "\$tty"
-    done
+    echo "$message" | write "$user" "$user_tty"
+    echo "Message sent to $user on $user_tty" >> "$DEBUG_LOG"
 }
 
 log_message() {
-    local message=\$1
-    echo "[\$DATE] \$message" >> "\$LOG_FILE"
+    local message=$1
+    echo "[$DATE] $message" >> "$LOG_FILE"
 }
 
-monitoring_data=\$(
-    echo "--- Monitoring Data: \$DATE ---"
+monitoring_data=$(
+    echo "--- Monitoring Data: $DATE ---"
     echo -e "\n--- Espace disque (df -h) ---"
     df -h
     echo -e "\n--- Mémoire disponible (free -m) ---"
@@ -540,11 +539,13 @@ monitoring_data=\$(
     ps -e --no-headers | wc -l
 )
 
-for user in \$USERS; do
-    send_to_user_terminals "\$user" "\$monitoring_data"
+for user in $USERS; do
+    echo "Processing user: $user" >> "$DEBUG_LOG"
+    send_to_user_terminals "$user" "$monitoring_data"
 done
 
-log_message "\$monitoring_data"
+log_message "$monitoring_data"
+
 ```
 
 **Rendre le script exécutable :**
