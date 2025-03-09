@@ -585,7 +585,7 @@ clear
 echo "Appuyez sur 'q' pour quitter."
 
 while true; do
-    echo "---- Monitoring Data: \$(date) ----"
+    echo "---- Monitoring Data: $(date) ----"
     echo -e "\n--- Espace disque (df -h) ---"
     df -h
     echo -e "\n--- Mémoire disponible (free -m) ---"
@@ -601,7 +601,7 @@ while true; do
     echo -e "\nAppuyez sur 'q' pour quitter ou attendez la prochaine mise à jour..."
 
     read -t 5 -n 1 key
-    if [[ \$key == "q" ]]; then
+    if [[ $key == "q" ]]; then
         echo -e "\nSortie du script. Au revoir !"
         break
     fi
@@ -614,6 +614,12 @@ Rendre le script exécutable :
 
 ```bash
 sudo chmod +x /usr/local/bin/interactive_monitor.sh
+```
+
+crée un alias
+
+```bash
+alias monitor='sudo bash /usr/local/bin interactive_monitor.sh'
 ```
 
 ## 3. Script de Backup
